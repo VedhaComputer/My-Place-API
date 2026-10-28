@@ -39,7 +39,6 @@ pnpm-debug.log*
 tests/*
 !tests/unit/
 tests/unit/*
-!tests/unit/repository.search.test.ts
 test/
 *.test.ts
 !tests/unit/repository.search.test.ts
