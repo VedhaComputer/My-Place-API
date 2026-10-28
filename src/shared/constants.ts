@@ -1,0 +1,78 @@
+export const PLACE_LEVELS = {
+  COUNTRY: 'COUNTRY',
+  STATE_UT: 'STATE_UT',
+  DIVISION: 'DIVISION',
+  DISTRICT: 'DISTRICT',
+  SUB_DIVISION: 'SUB_DIVISION',
+  TEHSIL: 'TEHSIL',
+  BLOCK: 'BLOCK',
+  CITY_TOWN: 'CITY_TOWN',
+  VILLAGE: 'VILLAGE',
+  WARD: 'WARD',
+} as const;
+
+export type PlaceLevel = (typeof PLACE_LEVELS)[keyof typeof PLACE_LEVELS];
+
+export const VALID_PARENT_LEVEL: Record<PlaceLevel, PlaceLevel[] | null> = {
+  COUNTRY: null,
+  STATE_UT: ['COUNTRY'],
+  DIVISION: ['STATE_UT'],
+  DISTRICT: ['STATE_UT', 'DIVISION'],
+  SUB_DIVISION: ['DISTRICT'],
+  TEHSIL: ['DISTRICT', 'SUB_DIVISION'],
+  BLOCK: ['DISTRICT', 'SUB_DIVISION', 'TEHSIL'],
+  CITY_TOWN: ['TEHSIL', 'SUB_DIVISION', 'DISTRICT'],
+  VILLAGE: ['TEHSIL', 'BLOCK', 'SUB_DIVISION'],
+  WARD: ['CITY_TOWN', 'VILLAGE'],
+};
+
+export const VERIFICATION_STATUS = {
+  PENDING_VERIFICATION: 'PENDING_VERIFICATION',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED',
+  NEEDS_REVIEW: 'NEEDS_REVIEW',
+} as const;
+
+export type VerificationStatus = (typeof VERIFICATION_STATUS)[keyof typeof VERIFICATION_STATUS];
+
+export const VERIFICATION_DECISION = {
+  VERIFY: 'VERIFY',
+  REJECT: 'REJECT',
+  NEEDS_REVIEW: 'NEEDS_REVIEW',
+} as const;
+
+export type VerificationDecision = (typeof VERIFICATION_DECISION)[keyof typeof VERIFICATION_DECISION];
+
+export const REVIEW_TICKET_STATUS = {
+  PENDING_REVIEW: 'PENDING_REVIEW',
+  RESOLVED_ALIAS_CREATED: 'RESOLVED_ALIAS_CREATED',
+  RESOLVED_DUPLICATE_REJECTED: 'RESOLVED_DUPLICATE_REJECTED',
+  RESOLVED_NAME_MODIFIED: 'RESOLVED_NAME_MODIFIED',
+  DISMISSED: 'DISMISSED',
+} as const;
+
+export type ReviewTicketStatus = (typeof REVIEW_TICKET_STATUS)[keyof typeof REVIEW_TICKET_STATUS];
+
+export const USER_ROLES = {
+  GUEST: 'GUEST',
+  CONTRIBUTOR: 'CONTRIBUTOR',
+  LOCAL_CONTRIBUTOR: 'LOCAL_CONTRIBUTOR',
+  REVIEWER: 'REVIEWER',
+  MODERATOR: 'MODERATOR',
+  ADMIN: 'ADMIN',
+} as const;
+
+export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
+
+export const ROLE_HIERARCHY: Record<UserRole, number> = {
+  GUEST: 0,
+  CONTRIBUTOR: 1,
+  LOCAL_CONTRIBUTOR: 2,
+  REVIEWER: 3,
+  MODERATOR: 4,
+  ADMIN: 5,
+};
+
+export function hasMinimumRole(userRole: UserRole, minimumRole: UserRole): boolean {
+  return ROLE_HIERARCHY[userRole] >= ROLE_HIERARCHY[minimumRole];
+}
