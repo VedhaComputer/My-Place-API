@@ -36,9 +36,13 @@ pnpm-debug.log*
 # -----------------------------------------------------------------------------
 # Testing & Code Coverage
 # -----------------------------------------------------------------------------
-tests/
+tests/*
+!tests/unit/
+tests/unit/*
+!tests/unit/repository.search.test.ts
 test/
 *.test.ts
+!tests/unit/repository.search.test.ts
 *.test.js
 *.spec.ts
 *.spec.js

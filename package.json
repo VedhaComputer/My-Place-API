@@ -9,7 +9,8 @@
     "start": "node dist/server.js",
     "test": "jest --forceExit --detectOpenHandles",
     "test:coverage": "jest --coverage --forceExit",
-    "validate:census": "ts-node src/scripts/validateCensusStaging.ts"
+    "validate:census": "ts-node src/scripts/validateCensusStaging.ts",
+    "db:indexes": "ts-node src/scripts/ensureIndexes.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
